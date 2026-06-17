@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BirkBosma — Fotografie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/logo.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="BirkBosma logo"></a>
+  </header>
+
+  <nav class="nav">
+    <a href="index.html">Portfolio</a>
+    <a href="fotografie.html" class="active">Fotografie</a>
+    <a href="about.html">About</a>
+    <a href="school.html">School</a>
+  </nav>
+
+  <div class="cat-head">
+    <a class="back" href="fotografie.html">&larr; Alle categorieën</a>
+    <h1 class="display" id="catTitle"></h1>
+  </div>
+
+  <main class="gallery" id="gallery"></main>
+
+  <section class="overige" id="catOverige"></section>
+
+  <section class="cat-beschrijving" id="catBesch"></section>
+
+  <footer class="site-footer">&copy; BirkBosma</footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lb-close" id="lbClose" aria-label="Sluiten">&times;</button>
+    <button class="lb-prev" id="lbPrev" aria-label="Vorige">&#8249;</button>
+    <button class="lb-next" id="lbNext" aria-label="Volgende">&#8250;</button>
+    <div class="lb-stage" id="lbStage">
+      <figure class="lb-pane" id="lbPaneLeft">
+        <img id="lbLeft" src="" alt="">
+        <figcaption id="lbLabelLeft"></figcaption>
+      </figure>
+      <figure class="lb-pane" id="lbPaneRight">
+        <img id="lbRight" src="" alt="">
+        <figcaption id="lbLabelRight"></figcaption>
+      </figure>
+    </div>
+    <div class="lb-info">
+      <h3 id="lbTitle"></h3>
+      <p id="lbText"></p>
+      <p class="lb-exif" id="lbExif"></p>
+    </div>
+  </div>
+
+  <script src="data/photos.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const key = params.get('cat');
+    const data = window.FOTO_DATA[key];
+
+    if (!data) {
+      document.getElementById('catTitle').textContent = 'Categorie niet gevonden';
+    } else {
+      document.title = 'BirkBosma — ' + data.naam;
+      document.getElementById('catTitle').textContent = data.naam;
+
+      const gallery = document.getElementById('gallery');
+      if (data.layout === 'rij') gallery.classList.add('row');
+      data.fotos.forEach(function(foto, i){
+        const fig = document.createElement('figure');
+        if (foto.raw) fig.classList.add('has-compare');
+        fig.innerHTML =
+          '<img src="images/fotografie/' + foto.src + '" alt="' + (foto.titel || '') + '" loading="lazy">' +
+          (foto.raw ? '<span class="compare-badge">voor / na</span>' : '') +
+          (foto.titel ? '<figcaption>' + foto.titel + '</figcaption>' : '');
+        fig.addEventListener('click', function(){ openLightbox(i); });
+        gallery.appendChild(fig);
+      });
+
+      // Optional description under the gallery (process / exam rubric)
+      if (data.beschrijving) {
+        const b = data.beschrijving;
+        const box = document.getElementById('catBesch');
+        let html = '';
+        if (b.kop) html += '<h2>' + b.kop + '</h2>';
+        if (b.intro) html += '<p class="besch-intro">' + b.intro + '</p>';
+        function renderPunten(p){ return '<ul>' + p.map(function(x){ return '<li>' + x + '</li>'; }).join('') + '</ul>'; }
+        if (b.punten && b.punten.length) html += renderPunten(b.punten);
+        if (b.secties && b.secties.length) {
+          b.secties.forEach(function(s){
+            if (s.kop) html += '<h3>' + s.kop + '</h3>';
+            if (s.tekst) html += '<p>' + s.tekst + '</p>';
+            if (s.punten && s.punten.length) html += renderPunten(s.punten);
+          });
+        }
+        box.innerHTML = html;
+      }
+
+      // Carousel of unused shots (browsable)
+      if (data.overige && data.overige.length) {
+        const sec = document.getElementById('catOverige');
+        sec.innerHTML =
+          '<h2>Overige opnames</h2>' +
+          '<p class="overige-hint">Niet-gekozen foto\u2019s uit de serie \u2014 scroll of sleep om te bladeren <span aria-hidden="true">\u2192</span></p>' +
+          '<div class="carousel">' +
+            '<button class="car-btn car-prev" aria-label="Vorige">\u2039</button>' +
+            '<div class="car-track" id="carTrack"></div>' +
+            '<button class="car-btn car-next" aria-label="Volgende">\u203a</button>' +
+          '</div>';
+        const track = document.getElementById('carTrack');
+        data.overige.forEach(function(o, idx){
+          const it = document.createElement('div');
+          it.className = 'car-item';
+          it.innerHTML = '<img src="images/fotografie/' + o.src + '" alt="Overige opname" loading="lazy">';
+          it.addEventListener('click', function(){ openExtra(idx); });
+          track.appendChild(it);
+        });
+        function step(dir){ track.scrollBy({ left: dir * track.clientWidth * 0.8, behavior: 'smooth' }); }
+        sec.querySelector('.car-prev').addEventListener('click', function(){ step(-1); });
+        sec.querySelector('.car-next').addEventListener('click', function(){ step(1); });
+      }
+
+      // ---- Lightbox ----
+      const lb = document.getElementById('lightbox');
+      const stage = document.getElementById('lbStage');
+      const paneLeft = document.getElementById('lbPaneLeft');
+      const lbLeft = document.getElementById('lbLeft');
+      const lbRight = document.getElementById('lbRight');
+      const labL = document.getElementById('lbLabelLeft');
+      const labR = document.getElementById('lbLabelRight');
+      const lbTitle = document.getElementById('lbTitle');
+      const lbText = document.getElementById('lbText');
+      const lbExif = document.getElementById('lbExif');
+      let current = 0;
+      let viewList = data.fotos;
+
+      function show(i) {
+        current = (i + viewList.length) % viewList.length;
+        const f = viewList[current];
+        lbRight.src = 'images/fotografie/' + f.src;
+        lbRight.alt = f.titel || '';
+        if (f.raw) {
+          const labs = f.labels || ['RAW', 'Bewerkt'];
+          lbLeft.src = 'images/fotografie/' + f.raw;
+          labL.textContent = labs[0];
+          labR.textContent = labs[1];
+          paneLeft.style.display = '';
+          stage.classList.add('compare');
+        } else {
+          paneLeft.style.display = 'none';
+          labR.textContent = '';
+          stage.classList.remove('compare');
+        }
+        lbTitle.textContent = f.titel || '';
+        lbText.textContent = f.tekst || '';
+
+        // Camera settings (camera / lens / diafragma / sluitertijd / ISO)
+        const e = f.exif || {};
+        const parts = [];
+        if (e.camera) parts.push(e.camera);
+        if (e.lens) parts.push(e.lens);
+        if (e.diafragma) parts.push(e.diafragma);
+        if (e.sluitertijd) parts.push(e.sluitertijd);
+        if (e.iso) parts.push('ISO ' + e.iso);
+        lbExif.textContent = parts.join('   ·   ');
+        lbExif.style.display = parts.length ? '' : 'none';
+      }
+      function openLightbox(i){ viewList = data.fotos; show(i); lb.classList.add('open'); }
+      function openExtra(i){ viewList = data.overige; show(i); lb.classList.add('open'); }
+      function closeLightbox(){ lb.classList.remove('open'); }
+
+      document.getElementById('lbClose').addEventListener('click', closeLightbox);
+      document.getElementById('lbPrev').addEventListener('click', function(){ show(current - 1); });
+      document.getElementById('lbNext').addEventListener('click', function(){ show(current + 1); });
+      lb.addEventListener('click', function(e){ if (e.target === lb || e.target === stage) closeLightbox(); });
+      document.addEventListener('keydown', function(e){
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') show(current - 1);
+        if (e.key === 'ArrowRight') show(current + 1);
+      });
+    }
+  </script>
+
+</body>
+</html>

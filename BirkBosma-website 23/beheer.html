@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BirkBosma — Teksten bewerken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/logo.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="BirkBosma logo"></a>
+  </header>
+
+  <nav class="nav">
+    <a href="index.html">Portfolio</a>
+    <a href="fotografie.html">Fotografie</a>
+    <a href="about.html">About</a>
+    <a href="school.html">School</a>
+  </nav>
+
+  <main class="editor">
+    <h1>Teksten bewerken</h1>
+    <p class="lead">Pas hier de titel en de tekst van elke foto aan. Klik daarna op
+      <strong>Download photos.js</strong> en vervang het oude bestand in de map <code>data/</code>
+      door het gedownloade bestand. Klaar — de teksten staan dan op je site.</p>
+
+    <div id="editForm"></div>
+
+    <div class="editor-bar">
+      <button class="btn" id="downloadBtn">Download photos.js</button>
+      <span class="hint">Het gedownloade bestand zet je in de map <code>data/</code> (overschrijf het oude <code>photos.js</code>).</span>
+    </div>
+  </main>
+
+  <footer class="site-footer">&copy; BirkBosma</footer>
+
+  <script src="data/photos.js"></script>
+  <script>
+    const data = window.FOTO_DATA;
+    const form = document.getElementById('editForm');
+
+    Object.entries(data).forEach(([key, cat]) => {
+      const block = document.createElement('div');
+      block.className = 'cat-block';
+      block.innerHTML = '<h2>' + cat.naam + '</h2>';
+      cat.fotos.forEach((foto, i) => {
+        const row = document.createElement('div');
+        row.className = 'edit-row';
+        row.innerHTML =
+          '<img src="images/fotografie/' + foto.src + '" alt="">' +
+          '<div class="edit-fields">' +
+            '<label>Titel</label>' +
+            '<input type="text" data-k="' + key + '" data-i="' + i + '" data-f="titel" value="' + escapeAttr(foto.titel || '') + '">' +
+            '<label>Tekst</label>' +
+            '<textarea rows="2" data-k="' + key + '" data-i="' + i + '" data-f="tekst">' + escapeHtml(foto.tekst || '') + '</textarea>' +
+            '<label>Camera-instellingen</label>' +
+            '<div class="exif-row">' +
+              '<input type="text" placeholder="Camera" data-k="' + key + '" data-i="' + i + '" data-f="exif.camera" value="' + escapeAttr((foto.exif && foto.exif.camera) || '') + '">' +
+              '<input type="text" placeholder="Lens" data-k="' + key + '" data-i="' + i + '" data-f="exif.lens" value="' + escapeAttr((foto.exif && foto.exif.lens) || '') + '">' +
+              '<input type="text" placeholder="Diafragma, bijv. f/2.8" data-k="' + key + '" data-i="' + i + '" data-f="exif.diafragma" value="' + escapeAttr((foto.exif && foto.exif.diafragma) || '') + '">' +
+              '<input type="text" placeholder="Sluitertijd, bijv. 1/200 s" data-k="' + key + '" data-i="' + i + '" data-f="exif.sluitertijd" value="' + escapeAttr((foto.exif && foto.exif.sluitertijd) || '') + '">' +
+              '<input type="text" placeholder="ISO, bijv. 100" data-k="' + key + '" data-i="' + i + '" data-f="exif.iso" value="' + escapeAttr((foto.exif && foto.exif.iso) || '') + '">' +
+            '</div>' +
+          '</div>';
+        block.appendChild(row);
+      });
+      form.appendChild(block);
+    });
+
+    // Keep data in sync as the user types
+    form.addEventListener('input', (e) => {
+      const t = e.target;
+      const k = t.getAttribute('data-k'), i = t.getAttribute('data-i'), f = t.getAttribute('data-f');
+      if (k != null) {
+        if (f.indexOf('exif.') === 0) {
+          const sub = f.split('.')[1];
+          const foto = data[k].fotos[i];
+          foto.exif = foto.exif || {};
+          foto.exif[sub] = t.value;
+        } else {
+          data[k].fotos[i][f] = t.value;
+        }
+      }
+    });
+
+    function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function escapeAttr(s){ return escapeHtml(s).replace(/"/g,'&quot;'); }
+    function jsStr(s){ return JSON.stringify(s == null ? '' : s); }
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      let out = '';
+      out += '/* photos.js — gegenereerd via de tekst-editor.\n';
+      out += '   Foto toevoegen kan ook nog steeds met de hand: zet een bestand in\n';
+      out += '   images/fotografie/ en voeg een regel { src, titel, tekst } toe. */\n\n';
+      out += 'window.FOTO_DATA = {\n\n';
+      const keys = Object.keys(data);
+      keys.forEach((key, ci) => {
+        const cat = data[key];
+        out += '  ' + key + ': {\n';
+        out += '    naam: ' + jsStr(cat.naam) + ',\n';
+        out += '    cover: ' + jsStr(cat.cover) + ',\n';
+        if (cat.layout) out += '    layout: ' + jsStr(cat.layout) + ',\n';
+        if (cat.beschrijving) out += '    beschrijving: ' + JSON.stringify(cat.beschrijving) + ',\n';
+        out += '    fotos: [\n';
+        cat.fotos.forEach((foto, fi) => {
+          out += '      { src: ' + jsStr(foto.src);
+          if (foto.raw) out += ', raw: ' + jsStr(foto.raw);
+          if (foto.labels) out += ', labels: ' + JSON.stringify(foto.labels);
+          out += ', titel: ' + jsStr(foto.titel) + ', tekst: ' + jsStr(foto.tekst);
+          if (foto.exif) out += ', exif: ' + JSON.stringify(foto.exif);
+          out += ' }';
+          out += (fi < cat.fotos.length - 1 ? ',' : '') + '\n';
+        });
+        out += '    ]\n';
+        out += '  }' + (ci < keys.length - 1 ? ',' : '') + '\n\n';
+      });
+      out += '};\n';
+
+      const blob = new Blob([out], { type: 'text/javascript' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'photos.js';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+  </script>
+
+</body>
+</html>
