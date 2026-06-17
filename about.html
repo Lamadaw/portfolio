@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BirkBosma — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/logo.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="BirkBosma logo"></a>
+  </header>
+
+  <nav class="nav">
+    <a href="index.html">Portfolio</a>
+    <a href="fotografie.html">Fotografie</a>
+    <a href="about.html" class="active">About</a>
+    <a href="school.html">School</a>
+  </nav>
+
+  <main class="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <img class="about-logo" src="images/logo.png" alt="BirkBosma">
+        <div id="aboutText"></div>
+      </div>
+      <div class="about-media">
+        <figure class="about-big"  id="aboutBig"></figure>
+        <figure class="about-portrait" id="aboutPortrait"></figure>
+      </div>
+    </div>
+
+    <section class="about-collage" id="aboutCollage"></section>
+  </main>
+
+  <footer class="site-footer">&copy; BirkBosma</footer>
+
+  <script src="data/about.js"></script>
+  <script>
+    const A = window.ABOUT_DATA;
+
+    // Bio text
+    const txt = document.getElementById('aboutText');
+    A.tekst.forEach(function(p){ var el=document.createElement('p'); el.textContent=p; txt.appendChild(el); });
+
+    // Build a photo element, or a placeholder if missing/failed to load
+    function makePhoto(file, cls){
+      function placeholder(){
+        var d=document.createElement('div');
+        d.className='ph '+cls;
+        d.textContent='Foto hier';
+        return d;
+      }
+      if(!file || !file.trim()) return placeholder();
+      var img=document.createElement('img');
+      img.className=cls;
+      img.alt='';
+      img.src='images/about/'+file;
+      img.addEventListener('error', function(){ img.replaceWith(placeholder()); });
+      return img;
+    }
+
+    document.getElementById('aboutBig').appendChild(makePhoto(A.groot, 'big-img'));
+    document.getElementById('aboutPortrait').appendChild(makePhoto(A.portret, 'portrait-img'));
+
+    var collage = document.getElementById('aboutCollage');
+    A.collage.forEach(function(f, i){
+      var fig=document.createElement('figure');
+      fig.className='collage-item';
+      var rot = (i % 2 === 0 ? -1 : 1) * (3 + (i % 3) * 2);   // -3..7 deg
+      var ty  = (i % 2 === 0 ? 1 : -1) * (8 + (i % 2) * 10);  // up/down offset
+      fig.style.setProperty('--rot', rot + 'deg');
+      fig.style.setProperty('--ty', ty + 'px');
+      fig.style.zIndex = i + 1;                                // later photos overlap earlier
+      fig.appendChild(makePhoto(f, 'collage-img'));
+      collage.appendChild(fig);
+    });
+  </script>
+</body>
+</html>

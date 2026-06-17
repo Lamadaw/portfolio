@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BirkBosma — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/logo.png">
+</head>
+<body>
+
+  <!-- Rotating accent badge (klikbaar -> fotografie) -->
+  <a class="badge" href="fotografie.html" title="Naar fotografie" style="text-decoration:none;">
+    <svg viewBox="0 0 188 188">
+      <defs>
+        <path id="circlePath" d="M94,94 m-66,0 a66,66 0 1,1 132,0 a66,66 0 1,1 -132,0"/>
+      </defs>
+      <text fill="#fff" font-size="17" font-family="Poppins, sans-serif" font-weight="600" letter-spacing="3">
+        <textPath href="#circlePath" startOffset="0">FOTOGRAFIE • VIDEOGRAFIE • </textPath>
+      </text>
+    </svg>
+    <div class="center">★</div>
+  </a>
+
+  <header class="site-header">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="BirkBosma logo"></a>
+  </header>
+
+  <nav class="nav">
+    <a href="index.html" class="active">Portfolio</a>
+    <a href="fotografie.html">Fotografie</a>
+    <a href="about.html">About</a>
+    <a href="school.html">School</a>
+  </nav>
+
+  <main class="grid">
+
+    <a class="tile" href="smiling.html" aria-label="Bekijk video: ga draaien">
+      <img src="images/smiling.jpg" alt="Lachende man in het veld">
+      <span class="caption">ga draaien.</span>
+      <span class="play"><span></span></span>
+    </a>
+
+    <a class="tile" href="interview.html" aria-label="Bekijk video: interview">
+      <img src="images/interview.jpg" alt="Straatinterview in de stad">
+      <span class="caption">dat</span>
+      <span class="play"><span></span></span>
+    </a>
+
+    <a class="tile" href="space.html" aria-label="Bekijk video">
+      <img src="images/space.jpg" alt="Portret met sterrenhemel-effect">
+      <span class="play"><span></span></span>
+    </a>
+
+    <a class="tile" href="bakeperfect.html" aria-label="Bekijk video: BakePerfect">
+      <img src="images/bakeperfect.jpg" alt="BakePerfect commercial">
+      <span class="caption">BakePerfect</span>
+      <span class="play"><span></span></span>
+    </a>
+
+  </main>
+
+  <footer class="site-footer">© BirkBosma</footer>
+
+</body>
+</html>

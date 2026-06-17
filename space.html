@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BirkBosma — dracula videoclip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/logo.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="BirkBosma logo"></a>
+  </header>
+
+  <nav class="nav">
+    <a href="index.html" class="active">Portfolio</a>
+    <a href="fotografie.html">Fotografie</a>
+    <a href="about.html">About</a>
+    <a href="school.html">School</a>
+  </nav>
+
+  <main class="video-wrap">
+    <a class="back" href="index.html">&larr; Terug naar portfolio</a>
+
+    <div class="player">
+      <iframe
+        src="https://www.youtube.com/embed/PFd1b19-PMQ?rel=0&playsinline=1"
+        title="dracula videoclip"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
+    </div>
+
+    <h1 class="video-title" id="vTitle">dracula videoclip</h1>
+    <p class="video-meta"><a href="https://youtu.be/PFd1b19-PMQ" target="_blank" rel="noopener">Bekijk op YouTube &nearr;</a></p>
+  </main>
+
+  <footer class="site-footer">&copy; BirkBosma</footer>
+
+  <script>
+    // Try to show the real YouTube title; keep the fallback if it can't be fetched.
+    fetch('https://www.youtube.com/oembed?format=json&url=https://youtu.be/PFd1b19-PMQ')
+      .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+      .then(function(d){
+        document.getElementById('vTitle').textContent = d.title;
+        document.title = 'BirkBosma \u2014 ' + d.title;
+      })
+      .catch(function(){});
+  </script>
+
+</body>
+</html>

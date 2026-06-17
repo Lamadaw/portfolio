@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BirkBosma — Fotografie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/logo.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="BirkBosma logo"></a>
+  </header>
+
+  <nav class="nav">
+    <a href="index.html">Portfolio</a>
+    <a href="fotografie.html" class="active">Fotografie</a>
+    <a href="about.html">About</a>
+    <a href="school.html">School</a>
+  </nav>
+
+  <div class="foto-top">
+    <a class="pill display" href="index.html" title="Naar video portfolio">Video</a>
+    <h1 class="display">Fotografie</h1>
+    <span class="spacer"></span>
+  </div>
+
+  <p style="text-align:center;margin:0 0 6px;"><a href="beheer.html" class="back" style="opacity:.7;">&#9998; Teksten bewerken</a></p>
+  <main class="cat-row" id="catRow"><!-- categories injected here --></main>
+
+  <footer class="site-footer">© BirkBosma</footer>
+
+  <script src="data/photos.js"></script>
+  <script>
+    const row = document.getElementById('catRow');
+    Object.entries(window.FOTO_DATA).forEach(([key, cat]) => {
+      const n = cat.fotos.length;
+      const a = document.createElement('a');
+      a.className = 'cat-card';
+      a.href = 'categorie.html?cat=' + encodeURIComponent(key);
+      a.innerHTML =
+        '<img src="images/fotografie/' + cat.cover + '" alt="' + cat.naam + '">' +
+        '<span class="label">' + cat.naam + '</span>' +
+        '<span class="count">' + n + ' foto' + (n === 1 ? '' : '\u0027s') + '</span>';
+      row.appendChild(a);
+    });
+  </script>
+
+</body>
+</html>
