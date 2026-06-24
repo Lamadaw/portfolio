@@ -20,10 +20,63 @@
     <a href="about.html">About</a>
     <a href="school.html" class="active">School</a>
   </nav>
-  <main class="page">
+
+  <main class="page school-page">
     <h1>School</h1>
-    <p>Hier komt binnenkort meer over mijn opleiding en schoolprojecten.</p>
+    <p class="school-intro">Hieronder vind je de producties waar ik aan heb meegeholpen en, per video, wat er bij de voorbereiding (pre-productie) komt kijken.</p>
+
+    <div class="school-tabs">
+      <a class="school-tab" href="producties.html">Producties</a>
+      <span class="school-tab active">Pre-productie</span>
+    </div>
+
+    <div class="school-grid" id="schoolGrid"></div>
   </main>
+
   <footer class="site-footer">&copy; BirkBosma</footer>
+
+  <script src="data/school.js"></script>
+  <script>
+    (function(){
+      var data = (window.SCHOOL_DATA && window.SCHOOL_DATA.videos) || [];
+      var grid = document.getElementById('schoolGrid');
+      var fase = 'pre';
+
+      function render(){
+        grid.innerHTML = '';
+        data.forEach(function(v){
+          if (!v[fase]) return;            // sla over als deze fase (pre/post) leeg is
+          var f = v[fase];
+          var hasLink = !!f.link;
+          var card = document.createElement(hasLink ? 'a' : 'div');
+          card.className = 'school-card' + (hasLink ? ' school-card--link' : '');
+          if (hasLink) { card.href = f.link; }
+
+          var fotos = (f.fotos && f.fotos.length) ? f.fotos : [v.thumb];
+          var imgs = fotos.map(function(src){
+            return '<img src="images/' + (src === v.thumb ? '' : 'school/') + src + '" alt="' + v.naam + '" loading="lazy">';
+          }).join('');
+
+          var cta = hasLink
+            ? '<span class="school-cta">' + (f.linkLabel || 'Bekijk meer') + ' <span class="arrow">&rarr;</span></span>'
+            : '';
+
+          card.innerHTML =
+            '<div class="school-card-media">' + imgs + '</div>' +
+            '<div class="school-card-body">' +
+              '<h3>' + v.naam + '</h3>' +
+              '<span class="school-fase">Pre-productie</span>' +
+              '<p>' + (f.tekst || '') + '</p>' +
+              cta +
+            '</div>';
+          grid.appendChild(card);
+        });
+      }
+
+      document.querySelectorAll('.school-tab').forEach(function(b){ /* geen wissel meer nodig */ });
+
+      render();
+    })();
+  </script>
 </body>
 </html>

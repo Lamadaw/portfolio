@@ -34,6 +34,7 @@ window.FOTO_DATA = {
   landschap: {
     naam: "Landschap & Straatfotografie",
     cover: "B68I7153.jpg",
+    onderdelen: ["B1-K1-W1", "B1-K1-W2", "B1-K1-W3"],
     beschrijving: {
       kop: "Toelichting proces",
       secties: [
@@ -61,6 +62,7 @@ window.FOTO_DATA = {
   portret: {
     naam: "Portret Fotografie",
     cover: "portret-blauw2.jpg",
+    onderdelen: ["B1-K1-W1", "B1-K1-W2", "B1-K1-W3"],
     beschrijving: {
       kop: "Toelichting proces",
       secties: [
@@ -90,6 +92,7 @@ window.FOTO_DATA = {
   creatieve: {
     naam: "Creatieve Fotografie",
     cover: "B68I7215.jpg",
+    onderdelen: ["B1-K1-W1", "B1-K1-W2", "B1-K1-W3"],
     beschrijving: {
       kop: "Toelichting proces",
       secties: [
@@ -116,6 +119,7 @@ window.FOTO_DATA = {
   product: {
     naam: "Product Fotografie",
     cover: "glazen-goud.jpg",
+    onderdelen: ["B1-K1-W1", "B1-K1-W2", "B1-K1-W3"],
     beschrijving: {
       kop: "Toelichting proces",
       secties: [
@@ -142,6 +146,7 @@ window.FOTO_DATA = {
   examen: {
     naam: "Examen",
     cover: "examen-jong.jpg",
+    onderdelen: ["P4-K1-W1", "P4-K1-W2", "B1-K1-W2", "B1-K1-W3", "B1-K1-W4"],
     layout: "rij",
     beschrijving: {
       kop: "Examenopdracht",

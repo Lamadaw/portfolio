@@ -680,3 +680,381 @@ body{
   .car-item, .car-item img{ width:150px; }
   .car-item img{ height:210px; }
 }
+
+/* --- School: pre/post-productie --- */
+.school-intro{ max-width:680px; color:#444; margin-bottom:26px; }
+.school-page{ max-width:1180px; }
+.school-tabs{ display:flex; gap:10px; margin-bottom:30px; }
+.school-tab{
+  display:inline-block; text-decoration:none; color:#111;
+  padding:11px 22px; border-radius:30px; border:1px solid #ddd; background:#fff;
+  font-family:'Poppins',sans-serif; font-size:15px; font-weight:500; cursor:pointer;
+  transition:all .15s ease;
+}
+.school-tab:hover{ background:#f3f3f3; }
+.school-tab.active{ background:#111; color:#fff; border-color:#111; cursor:default; }
+.school-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:26px;
+}
+.school-card{
+  border:1px solid #eee; border-radius:12px; overflow:hidden; background:#fff;
+  display:flex; flex-direction:column;
+}
+.school-card-media{ display:flex; gap:4px; }
+.school-card-media img{
+  width:100%; height:240px; object-fit:cover; display:block; flex:1; min-width:0;
+}
+.school-card-body{ padding:18px 20px 22px; }
+.school-card-body h3{ font-size:20px; font-weight:600; margin:0 0 6px; }
+.school-fase{
+  display:inline-block; font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+  color:#888; margin-bottom:10px;
+}
+.school-card-body p{ font-size:15px; line-height:1.6; color:#333; margin:0; }
+@media (max-width:760px){
+  .school-grid{ grid-template-columns:1fr; }
+  .school-card-media img{ height:200px; }
+}
+
+/* --- School card: clickable (links to a detail page) --- */
+.school-card--link{
+  text-decoration:none; color:inherit; cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.school-card--link:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 26px rgba(0,0,0,.10);
+  border-color:#ddd;
+}
+.school-card--link .school-card-media img{ transition:transform .4s ease; }
+.school-card--link:hover .school-card-media img{ transform:scale(1.04); }
+.school-cta{
+  display:inline-flex; align-items:center; gap:7px; margin-top:14px;
+  font-size:14px; font-weight:600; color:#111;
+}
+.school-cta .arrow{ transition:transform .15s ease; }
+.school-card--link:hover .school-cta .arrow{ transform:translateX(3px); }
+
+/* ============ Concept detail page (ONNR Docu) ============ */
+.concept{ max-width:1000px; margin:30px auto 30px; padding:0 24px; }
+
+.concept-hero{
+  width:100%; max-height:560px; overflow:hidden;
+  border:1px solid var(--ink); background:#000; border-radius:4px;
+  margin:6px 0 30px;
+}
+.concept-hero img{
+  width:100%; height:100%; object-fit:cover; object-position:center 22%;
+  max-height:560px; display:block;
+}
+
+.concept-head{ margin:0 0 36px; }
+.concept-kicker{
+  display:inline-block; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  color:#888; margin-bottom:8px;
+}
+.concept-head h1{ font-size:clamp(30px,5vw,46px); line-height:1; margin:0 0 14px; }
+.concept-lead{ font-size:18px; line-height:1.7; color:#333; max-width:780px; margin:0; }
+
+.concept-section{ margin:0 0 44px; }
+.concept-section h2{ font-size:24px; font-weight:600; margin:0 0 14px; }
+.concept-note{ font-size:15px; line-height:1.6; color:#777; max-width:780px; margin:0 0 20px; }
+
+/* Facts */
+.concept-facts{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+  background:#eee; border:1px solid #eee; border-radius:12px; overflow:hidden;
+}
+.concept-facts .fact{ background:#fff; padding:18px 20px; }
+.fact-label{
+  display:block; font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+  color:#999; margin-bottom:6px;
+}
+.fact-value{ display:block; font-size:16px; font-weight:500; color:#111; line-height:1.4; }
+
+/* Interview questions in tidy columns */
+.qcols{ columns:2; column-gap:30px; }
+.qblock{ break-inside:avoid; margin:0 0 22px; }
+.qblock h3{ font-size:17px; font-weight:600; margin:0 0 8px; }
+.qblock ul{ margin:0; padding-left:20px; }
+.qblock li{ font-size:15px; line-height:1.55; color:#2a2a2a; margin-bottom:6px; }
+
+/* Planning table */
+.concept-table{
+  width:100%; border-collapse:collapse; font-size:15px;
+  border:1px solid #eee; border-radius:12px; overflow:hidden;
+}
+.concept-table th, .concept-table td{
+  text-align:left; padding:12px 16px; border-bottom:1px solid #f0f0f0;
+}
+.concept-table thead th{
+  background:#111; color:#fff; font-weight:500;
+  font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+}
+.concept-table tbody tr:last-child td{ border-bottom:0; }
+.concept-table tbody tr:nth-child(even) td{ background:#fafafa; }
+.concept-table td:first-child{ font-weight:600; white-space:nowrap; }
+
+/* Floor plan figure */
+.concept-figure{ margin:0; border:1px solid #eee; border-radius:12px; overflow:hidden; background:#fff; }
+.concept-figure img{ display:block; width:100%; height:auto; }
+
+/* PDF link card */
+.concept-pdf{
+  display:flex; align-items:center; gap:16px; text-decoration:none;
+  border:1px solid #e6e6e6; border-radius:12px; padding:16px 18px; background:#fff;
+  transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.concept-pdf:hover{ border-color:#ccc; box-shadow:0 8px 22px rgba(0,0,0,.08); transform:translateY(-2px); }
+.concept-pdf-ico{
+  flex:none; width:46px; height:46px; border-radius:9px; background:#111; color:#fff;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:600; letter-spacing:.03em;
+}
+.concept-pdf-txt{ display:flex; flex-direction:column; gap:2px; }
+.concept-pdf-txt strong{ font-size:16px; font-weight:600; color:#111; }
+.concept-pdf-txt small{ font-size:13px; color:#888; }
+.concept-pdf-arrow{ margin-left:auto; font-size:20px; color:#111; }
+
+@media (max-width:760px){
+  .concept-facts{ grid-template-columns:1fr; }
+  .qcols{ columns:1; }
+  .concept-hero, .concept-hero img{ max-height:380px; }
+}
+
+/* ============ Producties page (School) ============ */
+.prod-page{ max-width:900px; }
+.prod-intro{ font-size:17px; line-height:1.7; color:#444; max-width:760px; margin:0 0 34px; }
+
+.prod-card{
+  border:1px solid #eee; border-radius:14px; background:#fff;
+  padding:24px 26px 26px; margin:0 0 26px;
+}
+.prod-body h2{ font-size:23px; font-weight:600; margin:0 0 8px; }
+.prod-text{ font-size:15px; line-height:1.7; color:#333; margin:0 0 20px; max-width:760px; }
+
+/* Photo gallery */
+.prod-gallery{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px;
+}
+.prod-thumb{
+  padding:0; border:0; background:#000; cursor:pointer; border-radius:10px;
+  overflow:hidden; aspect-ratio:3/4; display:block;
+}
+.prod-thumb img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .35s ease, opacity .2s ease; opacity:.96;
+}
+.prod-thumb:hover img{ transform:scale(1.05); opacity:1; }
+.prod-thumb:focus-visible{ outline:2px solid #111; outline-offset:2px; }
+
+.prod-nogallery{
+  border:1px dashed #ddd; border-radius:10px; padding:22px; text-align:center;
+  color:#aaa; font-size:14px; letter-spacing:.03em; background:#fafafa;
+}
+
+/* Lightbox */
+.prod-lightbox{
+  position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.92);
+  display:flex; align-items:center; justify-content:center;
+}
+.prod-lightbox[hidden]{ display:none; }
+.prod-lightbox img{
+  max-width:90vw; max-height:88vh; object-fit:contain; border-radius:4px;
+  box-shadow:0 10px 40px rgba(0,0,0,.5);
+}
+.prod-lightbox .lb-close{
+  position:absolute; top:18px; right:22px; background:none; border:0; color:#fff;
+  font-size:40px; line-height:1; cursor:pointer; opacity:.85;
+}
+.prod-lightbox .lb-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  background:rgba(255,255,255,.10); border:0; color:#fff; cursor:pointer;
+  width:54px; height:54px; border-radius:50%; font-size:34px; line-height:1;
+  display:flex; align-items:center; justify-content:center; opacity:.9;
+}
+.prod-lightbox .lb-nav:hover, .prod-lightbox .lb-close:hover{ opacity:1; }
+.prod-lightbox .lb-prev{ left:18px; }
+.prod-lightbox .lb-next{ right:18px; }
+@media (max-width:600px){
+  .prod-card{ padding:20px 18px 22px; }
+  .prod-gallery{ grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); }
+  .prod-lightbox .lb-nav{ width:44px; height:44px; font-size:28px; }
+}
+
+/* Examenonderdelen block */
+.prod-onderdelen{ border-top:1px solid #f0f0f0; padding-top:16px; }
+.prod-onderdelen-kop{
+  display:block; font-size:12px; letter-spacing:.07em; text-transform:uppercase;
+  color:#999; margin-bottom:12px;
+}
+.kt-group{ margin:0 0 14px; }
+.kt-head{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;
+}
+.kt-code{
+  flex:none; display:inline-block; font-size:12px; font-weight:600;
+  background:#111; color:#fff; padding:3px 8px; border-radius:6px; letter-spacing:.02em;
+}
+.kt-naam{ font-size:14px; font-weight:600; color:#111; }
+.kt-head .meter{ margin-left:auto; }
+
+.wp-list{ list-style:none; margin:0; padding:0 0 0 2px; }
+.wp-row{
+  display:flex; align-items:center; gap:14px; padding:7px 0;
+  border-top:1px dashed #f0f0f0;
+}
+.wp-text{ font-size:14px; line-height:1.45; color:#333; }
+.wp-code{
+  display:inline-block; font-size:11px; font-weight:600; color:#666;
+  background:#f1f1f1; padding:2px 6px; border-radius:5px; margin-right:4px;
+}
+.wp-row .meter{ margin-left:auto; }
+
+/* 3-step level meter */
+.meter{ flex:none; display:inline-flex; align-items:center; gap:8px; }
+.meter-bar{ display:inline-flex; gap:3px; }
+.meter-bar .seg{
+  width:18px; height:7px; border-radius:4px; background:#e3e3e3; display:inline-block;
+}
+.meter-bar .seg.on{ background:#111; }
+.meter-label{ font-size:12px; color:#555; min-width:64px; }
+
+/* Legend / reference */
+.prod-legend{ margin-top:46px; border-top:1px solid #eee; padding-top:30px; }
+.prod-legend > h2{ font-size:20px; font-weight:600; margin:0 0 18px; }
+.legend-kt{ margin:0 0 20px; }
+.legend-kt h3{ font-size:15px; font-weight:600; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+.legend-kt ul{ margin:0; padding-left:2px; list-style:none; }
+.legend-kt li{ font-size:14px; line-height:1.5; color:#444; padding:3px 0; }
+
+.prod-empty{ color:#777; }
+.prod-empty code{ background:#f1f1f1; padding:2px 6px; border-radius:5px; font-size:13px; }
+
+/* Link from the School page to Producties */
+.school-prodlink{
+  display:inline-flex; align-items:center; gap:9px; margin:0 0 30px;
+  padding:13px 22px; border-radius:30px; background:#111; color:#fff;
+  text-decoration:none; font-size:15px; font-weight:500;
+  transition:transform .15s ease, opacity .15s ease;
+}
+.school-prodlink:hover{ transform:translateY(-2px); opacity:.92; }
+.school-prodlink .arrow{ transition:transform .15s ease; }
+.school-prodlink:hover .arrow{ transform:translateX(3px); }
+
+@media (max-width:760px){
+  .prod-card{ grid-template-columns:1fr; }
+  .prod-media{ min-height:0; height:220px; }
+  .prod-body{ padding:18px 20px 22px; }
+  .kt-head .meter, .wp-row .meter{ margin-left:0; }
+  .wp-row{ flex-wrap:wrap; gap:6px; }
+}
+
+/* ============ "Hoort bij" examenonderdelen-kadertje ============ */
+.onderdelen-badge{
+  width:260px; max-width:100%;
+  border:1px solid #e6e6e6; border-radius:12px; background:#fff;
+  padding:12px 14px; box-shadow:0 4px 14px rgba(0,0,0,.04);
+  text-align:left;
+}
+.onderdelen-badge .ob-kop{
+  display:block; font-size:11px; letter-spacing:.07em; text-transform:uppercase;
+  color:#999; margin-bottom:9px;
+}
+.onderdelen-badge ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+.onderdelen-badge li{ display:flex; align-items:baseline; gap:8px; }
+.onderdelen-badge .ob-code{
+  flex:none; font-size:11px; font-weight:600; color:#fff; background:#111;
+  padding:2px 7px; border-radius:5px; letter-spacing:.02em; line-height:1.5;
+}
+.onderdelen-badge .ob-naam{ font-size:12.5px; line-height:1.35; color:#444; }
+.onderdelen-badge .meter{ margin-left:auto; }
+
+/* Leerdoelen onderaan de pagina (volle breedte) */
+.cat-layout{ max-width:var(--maxw); margin:16px auto 0; padding:0 24px; }
+.cat-content > .gallery{ margin:6px 0 60px; max-width:none; }
+.cat-content > .overige{ margin:0 0 60px; max-width:none; padding:0; }
+.cat-content > .cat-beschrijving{ margin:0 0 50px; max-width:none; padding:0; }
+.cat-side{ margin:0 0 70px; }
+
+.video-layout{ display:block; }
+.video-side{ margin:34px 0 0; }
+
+/* ============ Concept pages: extra building blocks ============ */
+/* Readable body text inside concept sections */
+.concept-section > p{ font-size:16px; line-height:1.7; color:#333; margin:0 0 14px; max-width:800px; }
+.concept-section > p:last-child{ margin-bottom:0; }
+
+/* Bronnen / links list */
+.concept-links{ list-style:none; margin:0; padding:0; max-width:640px; }
+.concept-links li{ border-bottom:1px solid #eee; }
+.concept-links li:first-child{ border-top:1px solid #eee; }
+.concept-links a{
+  display:flex; align-items:center; gap:10px; padding:13px 4px;
+  color:#111; text-decoration:none; font-size:15px;
+}
+.concept-links a::before{ content:"↗"; color:#aaa; font-size:14px; }
+.concept-links a:hover{ color:#000; }
+.concept-links a:hover::before{ color:#111; }
+
+/* Pitch steps */
+.pitch-steps{ list-style:none; margin:0; padding:0; counter-reset:none; }
+.pitch-step{ display:flex; gap:16px; padding:0 0 22px; }
+.pitch-step:not(:last-child){ border-left:0; }
+.pitch-num{
+  flex:none; width:34px; height:34px; border-radius:50%; background:#111; color:#fff;
+  display:flex; align-items:center; justify-content:center; font-weight:600; font-size:15px;
+}
+.pitch-body{ flex:1; }
+.pitch-head{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+.pitch-head h3{ font-size:18px; font-weight:600; margin:0; }
+.pitch-time{
+  font-size:12px; font-weight:600; letter-spacing:.03em; color:#777;
+  background:#f1f1f1; padding:2px 9px; border-radius:20px;
+}
+.pitch-body p{ font-size:15px; line-height:1.65; color:#333; margin:0 0 8px; max-width:760px; }
+.pitch-screen{ font-size:14px !important; color:#666 !important; border-left:3px solid #e3e3e3; padding-left:12px; }
+
+/* Pitch outro card */
+.pitch-outro{
+  border:1px solid #e6e6e6; border-radius:14px; padding:28px; text-align:center; background:#fafafa;
+}
+.pitch-outro span{ display:block; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#999; margin-bottom:6px; }
+.pitch-outro strong{ font-size:22px; font-weight:600; color:#111; }
+
+@media (max-width:600px){
+  .pitch-step{ gap:12px; }
+  .pitch-num{ width:30px; height:30px; font-size:14px; }
+}
+
+/* ============ Concept page: leerdoelen onderaan ============ */
+.concept-grid{ display:block; }
+.concept-side{ margin-top:46px; }
+
+/* Behaalde leerdoelen paneel (volle breedte, onderaan de pagina) */
+.leerdoelen-panel{
+  border:1px solid #e6e6e6; border-radius:14px; background:#fafafa;
+  padding:20px 22px 8px; box-shadow:0 4px 14px rgba(0,0,0,.04);
+}
+.leerdoelen-panel .lp-kop{
+  display:block; font-size:12px; letter-spacing:.07em; text-transform:uppercase;
+  color:#999; margin-bottom:16px;
+}
+.leerdoelen-panel ul{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:4px 28px;
+}
+.leerdoelen-panel li{ padding:0 0 14px; }
+.leerdoelen-panel .lp-top{ display:flex; align-items:baseline; gap:8px; }
+.leerdoelen-panel .ob-code{
+  flex:none; font-size:11px; font-weight:600; color:#fff; background:#111;
+  padding:2px 7px; border-radius:5px; letter-spacing:.02em; line-height:1.5;
+}
+.leerdoelen-panel .lp-naam{ font-size:13.5px; line-height:1.4; color:#333; }
+.leerdoelen-panel .meter{ display:inline-flex; margin-top:6px; }
+
+/* Lijst binnen een concept-sectie (bijv. interviewvragen) */
+.concept-list{ font-size:16px; line-height:1.7; color:#333; margin:0; padding-left:22px; max-width:800px; }
+.concept-list > li{ margin-bottom:10px; }
+.concept-list ul{ list-style:disc; margin:6px 0 0; padding-left:20px; }
+.concept-list ul li{ font-size:15px; color:#555; margin-bottom:4px; }

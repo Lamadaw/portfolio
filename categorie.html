@@ -28,11 +28,14 @@
     <h1 class="display" id="catTitle"></h1>
   </div>
 
-  <main class="gallery" id="gallery"></main>
-
-  <section class="overige" id="catOverige"></section>
-
-  <section class="cat-beschrijving" id="catBesch"></section>
+  <div class="cat-layout">
+    <div class="cat-content">
+      <main class="gallery" id="gallery"></main>
+      <section class="overige" id="catOverige"></section>
+      <section class="cat-beschrijving" id="catBesch"></section>
+    </div>
+    <aside class="cat-side"><div id="catOnderdelen"></div></aside>
+  </div>
 
   <footer class="site-footer">&copy; BirkBosma</footer>
 
@@ -58,6 +61,8 @@
     </div>
   </div>
 
+  <script src="data/onderdelen.js"></script>
+  <script src="js/onderdelen.js"></script>
   <script src="data/photos.js"></script>
   <script>
     const params = new URLSearchParams(location.search);
@@ -69,6 +74,12 @@
     } else {
       document.title = 'BirkBosma — ' + data.naam;
       document.getElementById('catTitle').textContent = data.naam;
+
+      // Behaalde leerdoelen (rechterkant van de pagina)
+      if (data.onderdelen && window.Onderdelen) {
+        document.getElementById('catOnderdelen').innerHTML =
+          window.Onderdelen.renderLeerdoelen(data.onderdelen, { kop: 'Behaalde leerdoelen' });
+      }
 
       const gallery = document.getElementById('gallery');
       if (data.layout === 'rij') gallery.classList.add('row');

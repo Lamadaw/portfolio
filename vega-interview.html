@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BirkBosma — Vega Interview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="images/logo.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="BirkBosma logo"></a>
+  </header>
+
+  <nav class="nav">
+    <a href="index.html">Portfolio</a>
+    <a href="fotografie.html">Fotografie</a>
+    <a href="about.html">About</a>
+    <a href="school.html" class="active">School</a>
+  </nav>
+
+  <main class="concept" data-video="Vega Interview">
+    <a class="back" href="school.html">&larr; Terug naar School</a>
+
+    <!-- Hero -->
+    <div class="concept-hero">
+      <img src="images/interview.jpg" alt="Vega Interview">
+    </div>
+
+    <div class="concept-grid">
+     <div class="concept-main">
+
+    <div class="concept-head">
+      <span class="concept-kicker">Pre-productie · Vega Interview</span>
+      <h1>Vega Interview</h1>
+      <p class="concept-lead">Een interviewproductie over vegetarisch eten, waarin we mensen op straat een paar korte vragen stellen. Een teamproductie waarin ik de camera deed.</p>
+    </div>
+
+    <!-- Rollen -->
+    <section class="concept-section">
+      <h2>Rollen</h2>
+      <div class="concept-facts">
+        <div class="fact"><span class="fact-label">Presentator</span><span class="fact-value">Rosalie</span></div>
+        <div class="fact"><span class="fact-label">Regie / producer</span><span class="fact-value">Taya</span></div>
+        <div class="fact"><span class="fact-label">Camera</span><span class="fact-value">Birk</span></div>
+        <div class="fact"><span class="fact-label">Geluid</span><span class="fact-value">Marrit</span></div>
+        <div class="fact"><span class="fact-label">Interviewer / assistent</span><span class="fact-value">Ilona</span></div>
+      </div>
+    </section>
+
+    <!-- Vragen -->
+    <section class="concept-section">
+      <h2>Interviewvragen</h2>
+      <ol class="concept-list">
+        <li>Bent u vegetarisch?
+          <ul>
+            <li>Zo ja: hoelang bent u al vegetariër?</li>
+            <li>Zo nee: heeft u ooit vegetarische gerechten geprobeerd?</li>
+          </ul>
+        </li>
+        <li>Wat is voor u het belangrijkste bij eten? (smaak, gezond eten, of iets anders)</li>
+        <li>Heeft u ook vegetarische vrienden?</li>
+        <li>Wat vindt u van vegetarisch eten?
+          <ul>
+            <li>Voor wie zelf vegetarisch is: heeft u een tip of advies voor mensen die vegetarisch willen gaan eten?</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Origineel document -->
+    <section class="concept-section">
+      <a class="concept-pdf" href="docs/vega-interview.pdf" target="_blank" rel="noopener">
+        <span class="concept-pdf-ico">PDF</span>
+        <span class="concept-pdf-txt">
+          <strong>Open het originele document</strong>
+          <small>Rollen &amp; interviewvragen · opent in een nieuw tabblad</small>
+        </span>
+        <span class="concept-pdf-arrow">&nearr;</span>
+      </a>
+    </section>
+
+     </div>
+     <aside class="concept-side"><div id="leerdoelen"></div></aside>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">&copy; BirkBosma</footer>
+
+  <script src="data/onderdelen.js"></script>
+  <script src="js/onderdelen.js"></script>
+  <script src="data/school.js"></script>
+  <script>
+    (function(){
+      var main = document.querySelector('main.concept');
+      var naam = main && main.getAttribute('data-video');
+      var videos = (window.SCHOOL_DATA && window.SCHOOL_DATA.videos) || [];
+      var v = videos.filter(function(x){ return x.naam === naam; })[0];
+      var ld = v && v.pre && v.pre.leerdoelen;
+      if (ld && ld.length && window.Onderdelen){
+        document.getElementById('leerdoelen').innerHTML =
+          window.Onderdelen.renderLeerdoelen(ld, { kop: 'Behaalde leerdoelen' });
+      }
+    })();
+  </script>
+
+</body>
+</html>
